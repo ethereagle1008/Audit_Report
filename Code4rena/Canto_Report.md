@@ -1,7 +1,7 @@
 # [H-1] update_market() nextEpoch calculation incorrect
 
 A very important logic of `update_market()` is to update `accCantoPerShare`. When updating, if it crosses the epoch boundary, it needs to use the corresponding epoch's `cantoPerBlock[epoch]`. For example: cantoPerBlock[100000] = 100 cantoPerBlock[200000] = 0 (No reward) lastRewardBlock = 199999 block.number = 200002
-
+ 
 At this time, `accCantoPerShare` needs to be increased: = cantoPerBlock[100000] * 1 Delta + cantoPerBlock[200000] *2 Delta = 100 _ (200000 - 199999) + 0 _ (200002 - 200000) = 100
 
 The code is as follows:
